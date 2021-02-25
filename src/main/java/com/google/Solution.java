@@ -14,7 +14,7 @@ public class Solution {
         
         Intersection[] intersections = new Intersection[nIntersections];
         for (int i = 0; i < nIntersections; i ++) {
-            intersections[i] = new Intersection(duration, score);
+            intersections[i] = new Intersection(intersections, i, duration, score);
         }
         
         // List<Street> streets = new ArrayList<>();
@@ -42,16 +42,26 @@ public class Solution {
             cars.add(car);
         }
         
-        int total = 0;
-        for (int i = 0; i < duration; i ++) {
-            for (Intersection it : intersections) {
-                total += it.process(i);
-            }
-            for (Car car : cars) {
-                System.out.println(car.getStreets());
+        System.out.println(nIntersections);
+        for (int i = 0; i < nIntersections; i ++) {
+            System.out.println(i);
+            List<Street> strs = intersections[i].streets;
+            System.out.println(strs.size());
+            for (int j = 0; j < strs.size(); j ++) {
+                System.out.println(strs.get(j).name + " 1");
             }
         }
-        System.out.println(total);
+        
+//        int total = 0;
+//        for (int i = 0; i < duration; i ++) {
+//            for (Intersection it : intersections) {
+//                total += it.process(i);
+//            }
+//            for (Car car : cars) {
+//                System.out.printf("time=%d, car=%d, streets=%s\n", i, car.id, car.getStreets());
+//            }
+//        }
+//        System.out.println(total);
     }
     
 
