@@ -10,7 +10,12 @@ public class Solution {
         int nIntersections = scan.nextInt();
         int nStreets = scan.nextInt();
         int nCars = scan.nextInt();
-        int scores = scan.nextInt();
+        int score = scan.nextInt();
+        
+        Intersection[] intersections = new Intersection[nIntersections];
+        for (int i = 0; i < nIntersections; i ++) {
+            intersections[i] = new Intersection(duration, score);
+        }
         
         // List<Street> streets = new ArrayList<>();
         Map<String, Street> streets = new HashMap<>();
@@ -19,30 +24,63 @@ public class Solution {
             int end = scan.nextInt();
             String name = scan.next();
             int time = scan.nextInt();
-            streets.put(name, new Street(i, name, start, end, time));
+            Street street = new Street(i, name, start, end, time);
+            streets.put(name, street);
+            intersections[start].streets.add(street);
         }
         
         List<Car> cars = new ArrayList<>();
         for (int i = 0; i < nCars; i ++) {
             Car car = new Car(i);
             int n = scan.nextInt();
-            for (int j = 0; j < n; j ++) {
-                String streetName = scan.next();
+            String streetName = scan.next();
+            intersections[streets.get(streetName).end].cars.add(car);
+            for (int j = 1; j < n; j ++) {
+                streetName = scan.next();
                 car.addStreet(streets.get(streetName));
             }
             cars.add(car);
         }
         
-        solveImpl(duration, nIntersections, streets, cars, scores);
-        
+        int total = 0;
+        for (int i = 0; i < duration; i ++) {
+            for (Intersection it : intersections) {
+                total += it.process(i);
+            }
+            for (Car car : cars) {
+                System.out.println(car.getStreets());
+            }
+        }
+        System.out.println(total);
     }
     
-    void solveImpl(int duration, int nIntersections, Map<String, Street> streets, List<Car> cars, int scores) {
-        
-    }
+
     
     public static void main(String[] args) {
         new Solution().solve();
     }
     
 }
+
+
+/*
+        for (int i = 0; i < nCars; i ++) {
+            int time = 0;
+            Car car = cars.get(i);
+            List<Street> strs = car.getStreets();
+            for (int j = 1; j < strs.size(); j ++) {
+                time += strs.get(j).time;
+            }
+            System.out.println(i + " " + time);
+        }
+        
+        // solveImpl(duration, nIntersections, streets, cars, scores);
+
+    void solveImpl(int duration, int nIntersections, Map<String, Street> streets, List<Car> cars, int scores) {
+        
+    }
+    
+    void helper() {
+        
+    }
+*/

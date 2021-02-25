@@ -5,6 +5,7 @@ import java.util.*;
 public class Car {
     
     int id;
+    int nextArrive = 0;
     List<Street> streets = new ArrayList<>();
 
     public Car(int id) {

@@ -15,4 +15,11 @@ public class Street {
         this.end = end;
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "Street{" + "name=" + name + '}';
+    }
+    
+    
 }
