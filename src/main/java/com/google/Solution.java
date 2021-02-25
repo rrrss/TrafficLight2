@@ -26,7 +26,7 @@ public class Solution {
             int time = scan.nextInt();
             Street street = new Street(i, name, start, end, time);
             streets.put(name, street);
-            intersections[start].streets.add(street);
+            intersections[end].streets.add(street);
         }
         
         List<Car> cars = new ArrayList<>();
